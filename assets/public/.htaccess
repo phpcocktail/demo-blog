@@ -1,0 +1,90 @@
+# This file is part of PhpCocktail. PhpCocktail is free software: you can redistribute it and/or modify it under the
+#		terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3
+#		of the License, or (at your option) any later version.
+# PhpCocktail is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+#		warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for
+#		more details. You should have received a copy of the GNU Lesser General Public License along with PhpCocktail.
+#		If not, see <http://www.gnu.org/licenses/>.
+# @author t
+# @since 1.0
+# @license LGPL
+# @copyright Copyright 2013 t
+<IfModule mod_rewrite.c>
+
+  ##
+  # Activate the module
+  ##
+  RewriteEngine On
+
+  ##
+  # Set the RewriteBase if your Contao installation is in a subdirectoy and
+  # the rewrite rules are not working properly. Usage examples:
+  #
+  #   RewriteBase /contao-2.9.0
+  #   RewriteBase /path/to/contao
+  #
+  # Uncomment the following line to set the RewriteBase.
+  ##
+  #RewriteBase /
+
+  ##
+  # Contao usually does not pass absolute URLs via GET, therefore the
+  # following rules block all requests that try to pass a URL or the /etc/
+  # directory as parameter (malicious requests).
+  ##
+  RewriteCond %{REQUEST_URI} (ftp|https?):|/etc/ [NC,OR]
+  RewriteCond %{QUERY_STRING} (ftp|https?):|/etc/ [NC]
+  RewriteRule .* - [F,L]
+
+  ##
+  # Uncomment the following lines and replace "domain.com" with your domain
+  # name to redirect requests without "www" to the correct domain. 
+  ##
+  #RewriteCond %{HTTP_HOST} ^domain\.com [NC]
+  #RewriteRule (.*) http://www.domain.com/$1 [R=301,L]
+
+  ##
+  # If you cannot use mod_deflate, uncomment the following lines to load a
+  # compressed .gz version of the bigger Contao JavaScript and CSS files.
+  ##
+  #AddEncoding gzip .gz
+  #<FilesMatch "\.js\.gz$">
+  #  AddType "text/javascript" .gz
+  #</FilesMatch>
+  #<FilesMatch "\.css\.gz$">
+  #  AddType "text/css" .gz
+  #</FilesMatch>
+  #RewriteCond %{HTTP:Accept-encoding} gzip
+  #RewriteCond %{REQUEST_FILENAME} \.(js|css)$
+  #RewriteCond %{REQUEST_FILENAME}.gz -f
+  #RewriteRule ^(.*)$ $1.gz [QSA,L]
+
+  ##
+  # Do not rewrite requests for static files or folders such as style sheets,
+  # images, movies or text documents.
+  ##
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+
+  ##
+  # By default, Contao adds ".html" to the generated URLs to simulate static
+  # HTML documents. If you change the URL suffix in the back end settings, make
+  # sure to change it here accordingly!
+  #
+  #   RewriteRule .*\.html$ index.php [L]   # URL suffix .html
+  #   RewriteRule .* index.php [L]          # No URL suffix
+  #   RewriteRule .*\.txt$ index.php [L]    # URL suffix .txt
+  #
+  # If you are using mod_cache, it is recommended to use the RewriteRule below,
+  # which adds the query string to the internal URL:
+  # 
+  #   RewriteRule (.*\.html)$ index.php/$1 [L]
+  #
+  # Note that not all environments support mod_rewrite and mod_cache.
+  ##
+#  RewriteRule .*\.html$ index.php [L]
+    RewriteRule .*$ index.php [L]
+
+</IfModule>
+
+Options -Indexes
