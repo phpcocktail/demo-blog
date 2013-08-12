@@ -16,17 +16,15 @@
  */
 namespace Blog;
 
+// don't measure bootstrapping
 $t0 = microtime(true);
-
-// @todo these shouldn't be here
-require('../../../../../camarera/vendor/autoload.php');
-require('../../../../vendor/autoload.php');
-require('../../bootstrap.php');
-
+// composer takes care of everything
+require('../../vendor/autoload.php');
 $t1 = microtime(true);
 
 try {
 
+	// set a custom HTTP header named 'Debug' and give it a positive value
 	if (array_key_exists('Debug', $headers = getallheaders()) && $headers['Debug']) {
 		\Camarera::registerLogger('Debug logger', \LoggerAppend::instance(), \Camarera::LOGGER_ALL);
 	}

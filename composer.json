@@ -6,14 +6,15 @@
 		"url": "https://github.com/phpcocktail/demo-blog.git",
 		"type": "vcs"
 	},
-	"repositories": [
-		{
+	"repositories": {
+		"packagist": false,
+		"phpcocktail/camarera": {
 			"type": "package",
 			"package": {
 				"name": "phpcocktail/camarera",
 				"version": "1.1",
 				"source": {
-					"url": "https://github.com/phpcocktail/camarera.git",
+					"url": "git@github.com:phpcocktail/camarera",
 					"type": "git",
 					"reference": "master"
 				},
@@ -23,13 +24,30 @@
 				}
 			}
 		},
-		{
+		"phpcocktail/cocktail": {
 			"type": "package",
 			"package": {
 				"name": "phpcocktail/cocktail",
 				"version": "1.1",
 				"source": {
-					"url": "https://github.com/phpcocktail/cocktail.git",
+					"url": "git@github.com:phpcocktail/cocktail",
+					"type": "git",
+					"reference": "master"
+				},
+				"autoload": {
+					"classmap": ["src/"],
+					"files": ["bootstrap.php"]
+				},
+				"bin": ["shake.php"]
+			}
+		},
+		"phpcocktail/block": {
+			"type": "package",
+			"package": {
+				"name": "phpcocktail/block",
+				"version": "1.1",
+				"source": {
+					"url": "git@github.com:phpcocktail/block",
 					"type": "git",
 					"reference": "master"
 				},
@@ -39,17 +57,14 @@
 				}
 			}
 		}
-	],
+	},
 	"require": {
 		"phpcocktail/camarera": "*",
-		"phpcocktail/cocktail": "*"
+		"phpcocktail/cocktail": "*",
+		"phpcocktail/block": "*"
 	},
 	"autoload": {
-		"classmap": [
-			"src/"
-		],
-		"files": [
-			"bootstrap.php"
-		]
+		"classmap": ["src/"],
+		"files": ["bootstrap.php"]
 	}
 }
